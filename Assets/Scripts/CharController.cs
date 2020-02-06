@@ -21,12 +21,9 @@ public class CharController : MonoBehaviour {
     private void FixedUpdate()
     {
         if (!gameManager.gameStarted)
-        {
             return;
-        } else
-        {
+        else
             anim.SetTrigger("gameStarted");
-        }
 
         rb.transform.position = transform.position + transform.forward * 2 * Time.deltaTime;
     }
@@ -34,13 +31,11 @@ public class CharController : MonoBehaviour {
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-        {
             Switch();
-        }
 
         RaycastHit hit;
 
-        if (!Physics.Raycast(rayStart.position, -transform.up, out hit, Mathf.Infinity) && this.transform.position.y < 0)
+        if (!Physics.Raycast(rayStart.position, -transform.up, out hit, Mathf.Infinity) && this.transform.position.y < 0.4f)
         {
             // Debug.Log("Raycast Hit is not existed");
             anim.SetTrigger("isFalling");
@@ -68,11 +63,8 @@ public class CharController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Test");
-
         if(other.tag == "Crystal")
-        {
-            
+        {   
             gameManager.IncreaseScore();
 
             GameObject g = Instantiate(crystalEffect, rayStart.transform.position, Quaternion.identity);
@@ -80,5 +72,4 @@ public class CharController : MonoBehaviour {
             Destroy(other.gameObject);
         }
     }
-
 }
